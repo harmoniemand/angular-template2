@@ -15,11 +15,28 @@ angular.module('jh-sample', ['ngAnimate', 'ngResource'])
             restrict: 'E',
             templateUrl: "/app/modules/site/template.html",
             controller: function () {
+                // READ
                 ticketService.get({ id: 1 })
                     .$promise
                     .then(function (result) {
                         alert(JSON.stringify(result));
                     });
+                
+                // CREATE
+                ticketService.post({ id: 1 })
+                    .$promise
+                    .then(function (result) {
+                        alert("Daten erstellt");
+                    });
+
+                // DELETE
+                ticketService.delete({ id: 1 })
+                    .$promise
+                    .then(function (result) {
+                        alert("Daten gelöscht");
+                    });
+
+
             }
         };
     }])
@@ -35,12 +52,12 @@ angular.module('jh-sample', ['ngAnimate', 'ngResource'])
         "use strict";
 
         return $resource(
-            '/fake/ticket.json',
+            '/fake/ticket/1',
             {
                 id: "@id"
             }, {
-                update: {
-                    method: 'GET'
-                }
+                get: { method: 'GET' },
+                delete: { method: 'DELETE' },
+                post: { method: 'POST' }
             });
     }]);
